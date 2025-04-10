@@ -1,28 +1,24 @@
 version: 2.1
 
 jobs:
-  deploy:
-    machine:
-      image: ubuntu-2004
+  fake-deploy:
+    docker:
+      - image: cimg/node:18.20  # Node image for running simple steps
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "your-ssh-key-fingerprint"
+      - checkout  # Pulls your repo
       - run:
-          name: Deploy to EC2
+          name: Simulate Deployment
           command: |
-            ssh -o StrictHostKeyChecking=no ubuntu@$EC2_HOST << 'EOF'
-              cd /home/ubuntu/your-repo
-              git pull origin main
-              npm install   # If using Node.js
-              pm2 restart index.js  # If using PM2 for running the app
-            EOF
+            echo "✅ Code pulled successfully"
+            echo "🚀 Simulating deployment..."
+            echo "✅ Deployment step passed (no EC2 or Docker used)"
 
 workflows:
   version: 2
   deploy-on-push:
     jobs:
-      - deploy:
+      - fake-deploy:
           filters:
             branches:
-              only: main
+              only:
+                - main
