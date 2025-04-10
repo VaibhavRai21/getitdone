@@ -29,8 +29,6 @@ await db.exec(`
 
 console.log("✅ SQLite Database Connected!");
 
-// 🚀 API Routes
-
 // 1️⃣ Register User
 app.post('/signup', async (req, res) => {
     const { firstName, lastName, username, email, password } = req.body;
