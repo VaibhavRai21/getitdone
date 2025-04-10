@@ -57,6 +57,13 @@ function addToDo(event) {
         deleted.classList.add('delete-btn', `${savedTheme}-button`);
         toDoDiv.appendChild(deleted);
 
+        // send email button
+const sendBtn = document.createElement('button');
+sendBtn.innerText = "✉️";
+sendBtn.classList.add('send-btn', `${savedTheme}-button`);
+sendBtn.onclick = () => openTaskEmailPopup(newToDo.innerText);
+toDoDiv.appendChild(sendBtn);
+
         // Append to list;
         toDoList.appendChild(toDoDiv);
 
@@ -147,6 +154,13 @@ function getTodos() {
         deleted.classList.add("delete-btn", `${savedTheme}-button`);
         toDoDiv.appendChild(deleted);
 
+        // send email button
+const sendBtn = document.createElement('button');
+sendBtn.innerText = "✉️";
+sendBtn.classList.add('send-btn', `${savedTheme}-button`);
+sendBtn.onclick = () => openTaskEmailPopup(newToDo.innerText);
+toDoDiv.appendChild(sendBtn);
+
         // Append to list;
         toDoList.appendChild(toDoDiv);
     });
@@ -201,3 +215,33 @@ function changeTheme(color) {
         });
     });
 }
+// 📧 Email Modal Logic
+const modal = document.getElementById("taskEmailPopup");
+const closeModal = document.querySelector(".close-email");
+const emailInput = document.getElementById("popupEmail");
+const messageInput = document.getElementById("popupMessage");
+const popupSendBtn = document.getElementById("popupSendBtn");
+
+function openTaskEmailPopup(taskText) {
+  modal.style.display = "block";
+  messageInput.value = `Task: ${taskText}`;
+  emailInput.value = ""; // reset
+}
+
+closeModal.onclick = () => modal.style.display = "none";
+window.onclick = (e) => {
+  if (e.target === modal) modal.style.display = "none";
+};
+
+popupSendBtn.onclick = () => {
+  const to = emailInput.value;
+  const msg = messageInput.value;
+
+  if (!to || !msg) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  alert(`📨 Email sent to ${to}!\n\n${msg}`);
+  modal.style.display = "none";
+};

@@ -1,0 +1,17 @@
+{
+  "name": "getitdone",
+  "version": "1.0.0",
+  "description": "Your Project",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node backend/server.mjs"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.9.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
+  }
+}

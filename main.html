@@ -32,7 +32,9 @@
   <div id="form">
         <form>
             <input class="todo-input" type="text" placeholder="Add a task.">
+            
             <button class="todo-btn" type="submit">Add Task!</button>
+
         </form>
     </div>
 
@@ -61,6 +63,18 @@
             </div> -->
         </ul>
     </div>
+
+    <div id="taskEmailPopup" class="modal">
+        <div class="modal-content">
+          <span class="close-email">&times;</span>
+          <h3>Send Task via Email</h3>
+          <input type="email" id="popupEmail" placeholder="Recipient's Email" />
+          <textarea id="popupMessage" rows="4"></textarea>
+          <button id="popupSendBtn">Send</button>
+        </div>
+      </div>
     <script src="JS/main.js" type="text/javascript"> </script>
+
+    
 </body>
 </html>

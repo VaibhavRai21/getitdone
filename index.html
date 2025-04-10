@@ -33,11 +33,13 @@
             margin-bottom: 5px;
         }
         .input-group input {
-            width: 100%;
+            width: 94%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+            
+            margin-bottom: 20px;
         }
         button {
             background: #ff758c;
@@ -91,26 +93,34 @@
             </div>
             <button type="submit">Sign Up</button>
         </form>
-        <p>Already have an account? <a href="/index.html">Log In</a></p>
+        <p>Already have an account? <a href="login.html">Log In</a></p>
     </div>
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            let firstName = document.getElementById('firstName').value;
-            let lastName = document.getElementById('lastName').value;
-            let username = document.getElementById('username').value;
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
-            
-            if (firstName && lastName && username && email && password) {
-                alert('Signup successful!');
-                window.location.href = "/index.html";
-                // Here you can add code to send data to a server
-            } else {
-                alert('Please fill in all fields.');
-            }
+    document.getElementById('signupForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const userData = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        };
+
+        const response = await fetch("http://localhost:5000/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData)
         });
-    </script>
+
+        const result = await response.json();
+        if (result.success) {
+            alert("Signup successful! Redirecting to login...");
+            window.location.href = "login.html";
+        } else {
+            alert(result.message);
+        }
+    });
+</script>
 </body>
 </html>

@@ -4,10 +4,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to right, #2e3130, #686d82);
+    background: linear-gradient(to right, #44ab89, #8aaa99);
 }
 
-.login-container {
+.container {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -20,6 +20,7 @@ input {
     width: 90%;
     margin: 10px auto;
     padding: 8px;
+    border-radius: 8px;
 }
 
 button {
@@ -28,6 +29,8 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 8px;
+    text-align: center;
 }
 
 button:hover {

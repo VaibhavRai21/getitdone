@@ -1,21 +1,25 @@
-function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-    if (username === "admin" && password === "1234") {  // Simple validation
+    const loginData = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+    };
+
+    const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData)
+    });
+
+    const result = await response.json();
+
+    // ✅ Correct logic:
+    if (response.ok) {
+        alert("Login successful!");
         localStorage.setItem("loggedIn", "true");
-        window.location.href = "main.html";  // Redirect to Task Remainder
+        window.location.href = "main.html";
     } else {
-        alert("Invalid Username or Password");
-    }
-}
-
-// Check login status and prevent unauthorized access
-document.addEventListener("DOMContentLoaded", function () {
-    if (window.location.pathname.includes("main.html")) {
-        const isLoggedIn = localStorage.getItem("loggedIn");
-        if (!isLoggedIn) {
-            window.location.href = "index.html";  // Redirect if not logged in
-        }
+        alert(result.error);
     }
 });
