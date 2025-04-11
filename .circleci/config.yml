@@ -11,7 +11,7 @@ jobs:
           command: |
             echo "✅ Code pulled successfully"
             echo "🚀 Simulating deployment..."
-            echo "✅ Deployment step passed (no EC2 or Docker used)"
+            echo "✅ Deployment step passed (no EC2 used yet)"
 
 workflows:
   version: 2
