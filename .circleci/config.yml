@@ -1,23 +1,44 @@
 version: 2.1
 
 jobs:
-  fake-deploy:
+  versioned-build:
     docker:
-      - image: cimg/node:18.20  # Node image for running simple steps
+      - image: cimg/node:18.20
     steps:
-      - checkout  # Pulls your repo
+      - checkout
+
+      - run:
+          name: Generate Version Tag
+          command: |
+            VERSION_TAG="build-$(date +%Y%m%d)-$(git rev-parse --short HEAD)"
+            echo "🔖 Version: $VERSION_TAG"
+            echo "$VERSION_TAG" > version.txt
+
+      - run:
+          name: Check if Commit is Latest on Main
+          command: |
+            echo "🔍 Verifying latest commit on main..."
+            LATEST_COMMIT=$(git ls-remote origin main | cut -f1)
+            echo "🔁 Current Commit: $CIRCLE_SHA1"
+            echo "🔁 Latest on main: $LATEST_COMMIT"
+            if [ "$CIRCLE_SHA1" != "$LATEST_COMMIT" ]; then
+              echo "⏭️ Skipping deploy — not latest commit on main branch."
+              exit 0
+            fi
+            echo "✅ This is the latest commit. Proceeding..."
+
       - run:
           name: Simulate Deployment
           command: |
-            echo "✅ Code pulled successfully"
-            echo "🚀 Simulating deployment..."
-            echo "✅ Deployment step passed (no EC2 used yet)"
+            VERSION=$(cat version.txt)
+            echo "🚀 Deploying version: $VERSION"
+            echo "✅ Deployment complete."
 
 workflows:
   version: 2
   deploy-on-push:
     jobs:
-      - fake-deploy:
+      - versioned-build:
           filters:
             branches:
               only:

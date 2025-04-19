@@ -1,0 +1,11 @@
+{
+  "name": "getitdone",
+  "version": "1.0.0",
+  "description": "Simple sign-up form with plain HTML, CSS, and JavaScript",
+  "scripts": {
+    "dev": "live-server"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
