@@ -1,11 +1,8 @@
-# Use Nginx for static frontend hosting
+# Use a lightweight web server to serve static files
 FROM nginx:alpine
 
-# Remove default Nginx web content
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy your frontend files
+# Copy the HTML, JS, and CSS files to the web server's root directory
 COPY . /usr/share/nginx/html
 
-# Expose frontend port
+# Expose the default HTTP port
 EXPOSE 80
